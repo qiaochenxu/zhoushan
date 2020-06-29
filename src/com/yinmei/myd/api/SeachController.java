@@ -30,33 +30,25 @@ public class SeachController extends Controller {
      * 咨询检索
      */
     public void seachConsulting(){
-        //第几页，默认第一页
-        int pageNumber=getParaToInt(1,1);
-        //每页显示数目，默认每页10条
-        int pageSize = getParaToInt(2,20);
-        //新闻咨询
 
         String keyword = getPara("keyword","");
         String catid = getPara("catid","0");
 
         if (catid.equals("24")){
-
-            Page<Record> info = Db.paginate(pageNumber,pageSize,"SELECT c.*"," FROM v9_xinwenzixun c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            List<Record> info = Db.find("SELECT c.* FROM v9_xinwenzixun c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
             set("info",info);
             //活动公告
         }else if (catid.equals("25")){
-
-            Page<Record> info = Db.paginate(pageNumber,pageSize,"SELECT c.*"," FROM v9_huodonggonggao c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            List<Record> info = Db.find("SELECT c.* FROM v9_huodonggonggao c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
             set("info",info);
             //馆务公开
         }else if (catid.equals("26")){
-
-            Page<Record> info = Db.paginate(pageNumber,pageSize,"SELECT c.*"," FROM v9_guanwugongkai c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            List<Record> info = Db.find("SELECT c.* FROM v9_guanwugongkai c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
             set("info",info);
             //文博动态
         }else if (catid.equals("45")){
 
-            Page<Record> info = Db.paginate(pageNumber,pageSize,"SELECT c.*"," FROM v9_wenbodongtai c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            List<Record> info = Db.find("SELECT c.* FROM v9_wenbodongtai c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
             set("info",info);
         }
         renderJson();
