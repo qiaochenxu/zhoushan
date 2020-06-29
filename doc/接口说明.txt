@@ -1,0 +1,13 @@
+栏目名称：	模型名称
+资讯信息 	zixunxinxi 	
+视频展示 	shipinzhanshi 	
+参观指南 	canguanzhinan
+
+美云点java_API
+		list接口
+		http://ip/myidea10/api/list/+模型名称
+		detail接口
+		http://ip/myidea10/api/detail/模型名称-信息id
+例子：
+	http://192.168.1.137/myidea10/api/list/zixunxinxi
+	http://192.168.1.137/myidea10/api/detail/zixunxinxi-1
