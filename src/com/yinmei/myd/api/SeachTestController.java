@@ -1,22 +1,21 @@
 package com.yinmei.myd.api;
 
 import cn.hutool.http.HttpRequest;
-import com.alibaba.druid.util.StringUtils;
 import com.jfinal.aop.Before;
-import com.jfinal.aop.Inject;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
 import java.util.List;
+
 @Before(CrossDomainInterceptor.class)
-public class SeachController extends Controller {
+public class SeachTestController extends Controller {
     /**
      * 藏品检索
      */
     public void seach(){
-        String keyword = getPara("keyword","");
+        String keyword = getPara("keyword"," ");
         String catid = getPara("catid","0");
         //第几页，默认第一页
         int pageNumber=getParaToInt(1,1);
@@ -30,16 +29,21 @@ public class SeachController extends Controller {
      * 咨询检索
      */
     public void seachConsulting(){
-
+        //String modelName = getPara(0);//模型名称
+        int pageNumber=getParaToInt(1,1);//第几页，默认第一页
+        int pageSize = getParaToInt(2,25);//每页显示数目，默认每页10条
+        String catid = getPara("catid","");
         String keyword = getPara("keyword","");
-        String catid = getPara("catid","0");
 
-        if (catid.equals("24")){
-            List<Record> info = Db.find("SELECT c.* FROM v9_xinwenzixun c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
-            set("info",info);
+
+
+        if ("24".equals(catid)){
+            Page<Record> paginate = Db.paginate(pageNumber, pageSize, "select c.*", " from v9_xinwenzixun c,v9_category a where a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            //List<Record> info = Db.find("SELECT c.* FROM v9_xinwenzixun c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            set("page",paginate);
             //活动公告
         }else if (catid.equals("25")){
-            List<Record> info = Db.find("SELECT c.* FROM v9_huodonggonggao c,v9_category a WHERE a.catid=c.catid and c.title like '%"+keyword+"%' and a.catid="+catid+";");
+            Page<Record> info = Db.paginate(pageNumber,pageSize,true,"SELECT c.title,d.zhengwen"," FROM v9_huodonggonggao c,v9_category a,v9_huodonggonggao_data d WHERE a.catid=c.catid and c.id=d.id and c.title like '%"+keyword+"%' or d.zhengwen like '%"+keyword+"%' and a.catid=? ORDER BY c.inputtime desc;",catid);
             set("info",info);
             //馆务公开
         }else if (catid.equals("26")){

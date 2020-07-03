@@ -1,10 +1,7 @@
 package com.yinmei.myd.common.config;
 
 import com.jfinal.config.Routes;
-import com.yinmei.myd.api.ApiController;
-import com.yinmei.myd.api.DownloadController;
-import com.yinmei.myd.api.SeachController;
-import com.yinmei.myd.api.VolunteerController;
+import com.yinmei.myd.api.*;
 
 public class AdminRoutes extends Routes {
 
@@ -19,6 +16,7 @@ public class AdminRoutes extends Routes {
 		this.add("/seachs", SeachController.class);
 		this.add("/download", DownloadController.class);
 		this.add("/vol", VolunteerController.class);
+		this.add("/seacht", SeachTestController.class);
 	}
 
 }

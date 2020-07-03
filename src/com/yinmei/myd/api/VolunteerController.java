@@ -41,4 +41,20 @@ public class VolunteerController extends Controller {
         set("list",list);
         renderJson();
     }
+
+    /**
+     * 活动预告详情页
+     */
+    public void events(){
+        String catid = getPara("catid","");
+        String id = getPara("id","");
+        String from = " from v9_huodongyugao h,v9_huodongyugao_data d where h.id=d.id and h.status='99' and h.id=? and h.catid=?;";
+        String slect = "select h.id,h.catid,h.title name,h.description,h.thumb,d.zhengwen,d.startdate,FROM_UNIXTIME(h.inputtime) releaseTime,d.startdate,d.enddate,d.applystartdate,d.applyenddate,d.address,d.tel";
+        String sl = slect + from;
+        List<Record> list = Db.find(sl, id, catid);
+        //List<Record> list = Db.find("select h.id,h.catid,h.title name,h.description,h.thumb,d.zhengwen,d.startdate,FROM_UNIXTIME(h.inputtime) releaseTime,d.startdate,d.enddate,d.applystartdate,d.applyenddate,d.address,d.tel from v9_huodongyugao h,v9_huodongyugao_data d where h.id=d.id and h.status='99' and h.id=? and h.catid=?;", id, catid);
+        set("list",list);
+        renderJson();
+    }
+
 }

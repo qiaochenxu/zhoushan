@@ -96,10 +96,12 @@ public class MainConfig extends JFinalConfig {
 		loadConfig();
 		//配置数据库连接池插件
 		DruidPlugin dbPlugin=getDruidPlugin();
-		wallFilter = new WallFilter();			// 加强数据库安全
+		// 加强数据库安全
+		wallFilter = new WallFilter();
 		wallFilter.setDbType("mysql");
 		dbPlugin.addFilter(wallFilter);
-		dbPlugin.addFilter(new StatFilter());	// 添加 StatFilter 才会有统计数据
+		// 添加 StatFilter 才会有统计数据
+		dbPlugin.addFilter(new StatFilter());
 		
 		//数据映射 配置ActiveRecord插件
 		ActiveRecordPlugin arp=new ActiveRecordPlugin(dbPlugin);
