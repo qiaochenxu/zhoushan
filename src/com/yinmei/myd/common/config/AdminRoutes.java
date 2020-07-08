@@ -16,7 +16,7 @@ public class AdminRoutes extends Routes {
 		this.add("/seachs", SeachController.class);
 		this.add("/download", DownloadController.class);
 		this.add("/vol", VolunteerController.class);
-		this.add("/seacht", SeachTestController.class);
+		this.add("/seacht", SeachController.class);
 	}
 
 }

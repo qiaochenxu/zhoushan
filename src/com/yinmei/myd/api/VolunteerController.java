@@ -56,5 +56,19 @@ public class VolunteerController extends Controller {
         set("list",list);
         renderJson();
     }
+    /**
+     * 文博讲座
+     */
+    public void chair(){
+        String catid = getPara("catid","");
+        String id = getPara("id","");
+        String from = " from v9_wenbojiangzuo w,v9_wenbojiangzuo_data d where w.id=d.id and w.status='99' and w.id=? and w.catid=?;";
+        String slect = "select w.id,w.catid,w.title name,w.description,w.thumb,d.zhengwen,d.startdate,FROM_UNIXTIME(w.inputtime) releaseTime,d.startdate,d.enddate,d.applystartdate,d.applyenddate,d.address,d.tel";
+        String sl = slect + from;
+        List<Record> list = Db.find(sl, id, catid);
+        //List<Record> list = Db.find("select h.id,h.catid,h.title name,h.description,h.thumb,d.zhengwen,d.startdate,FROM_UNIXTIME(h.inputtime) releaseTime,d.startdate,d.enddate,d.applystartdate,d.applyenddate,d.address,d.tel from v9_huodongyugao h,v9_huodongyugao_data d where h.id=d.id and h.status='99' and h.id=? and h.catid=?;", id, catid);
+        set("list",list);
+        renderJson();
+    }
 
 }
