@@ -1,5 +1,6 @@
 package com.yinmei.myd.api;
 
+import cn.hutool.http.HttpRequest;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
@@ -57,7 +58,7 @@ public class VolunteerController extends Controller {
         renderJson();
     }
     /**
-     * 文博讲座
+     * 文博讲座详情页
      */
     public void chair(){
         String catid = getPara("catid","");
@@ -66,7 +67,31 @@ public class VolunteerController extends Controller {
         String slect = "select w.id,w.catid,w.title name,w.description,w.thumb,d.zhengwen,d.startdate,FROM_UNIXTIME(w.inputtime) releaseTime,d.startdate,d.enddate,d.applystartdate,d.applyenddate,d.address,d.tel";
         String sl = slect + from;
         List<Record> list = Db.find(sl, id, catid);
-        //List<Record> list = Db.find("select h.id,h.catid,h.title name,h.description,h.thumb,d.zhengwen,d.startdate,FROM_UNIXTIME(h.inputtime) releaseTime,d.startdate,d.enddate,d.applystartdate,d.applyenddate,d.address,d.tel from v9_huodongyugao h,v9_huodongyugao_data d where h.id=d.id and h.status='99' and h.id=? and h.catid=?;", id, catid);
+        set("list",list);
+        renderJson();
+    }
+
+    /**
+     * 全部搜索详情页
+     */
+    public void all(){
+        String catid = getPara("catid", "");
+        String id = getPara("id", "");
+        String domain = "http://47.110.243.129//api/pc/program/"+catid+"/"+id+"";
+        String res = HttpRequest.post(domain).timeout(20000).execute().body();
+        renderJson(res);
+
+    }
+    /**
+     * 典藏详情页
+     */
+    public void antique(){
+        String catid = getPara("catid","");
+        String id = getPara("id","");
+        String from = " from v9_cangpinguanlixitong c,v9_cangpinguanlixitong_data d where c.id=d.id and c.status='99' and c.id=? and c.catid=?;";
+        String slect = "select c.*,d.*";
+        String sl = slect + from;
+        List<Record> list = Db.find(sl, id, catid);
         set("list",list);
         renderJson();
     }

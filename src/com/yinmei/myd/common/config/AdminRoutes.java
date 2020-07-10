@@ -13,9 +13,10 @@ public class AdminRoutes extends Routes {
 		//this.addInterceptor(new AdminAuthInterceptor());
 		//针对后台管理系统配置路由+controller
 		this.add("/api", ApiController.class);
-		this.add("/seachs", SeachController.class);
+		this.add("/seach", SeachController.class);
 		this.add("/download", DownloadController.class);
 		this.add("/vol", VolunteerController.class);
+		this.add("/man",ManagemenController.class);
 	}
 
 }
