@@ -1,8 +1,0 @@
-1.硬件获取
-	1.sigar
-	2.oshi
-2.ip查询
-	https://market.aliyun.com/products/57000002/cmapi031829.html?spm=5176.10695662.1996646101.searchclickresult.3e1b2312ftSitq#sku=yuncode2582900001
-3.关键词分析
-	https://ai.baidu.com/tech/nlp_apply/doctagger
-

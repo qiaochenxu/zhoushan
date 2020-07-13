@@ -110,6 +110,10 @@ public class SeachController extends Controller {
         }
         renderJson();
     }
+
+    /**
+     * 藏品
+     */
     public void antique(){
         Integer pageNumber = getParaToInt("pageNumber",1);
         Integer pageSize = getParaToInt("pageSize",10);
