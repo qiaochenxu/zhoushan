@@ -17,6 +17,7 @@ import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.render.ViewType;
+import com.jfinal.template.source.ClassPathSourceFactory;
 import com.yinmei.myd.index.IndexController;
 public class MainConfig extends JFinalConfig {
 	/**
@@ -107,6 +108,9 @@ public class MainConfig extends JFinalConfig {
 		ActiveRecordPlugin arp=new ActiveRecordPlugin(dbPlugin);
 		arp.setShowSql(p.getBoolean("devMode"));
 		arp.setDialect(new MysqlDialect());
+//		arp.getEngine().setSourceFactory(new ClassPathSourceFactory());
+//		arp.addSqlTemplate("antique.sql");
+		//arp.addSqlTemplate("antique.sql");
 		dbPlugin.setDriverClass("com.mysql.jdbc.Driver");
 		/********在此添加数据库 表-Model 映射*********/
 		//如果使用了JFinal Model 生成器 生成了BaseModel 把下面注释解开即可

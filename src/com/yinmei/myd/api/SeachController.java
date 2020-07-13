@@ -3,6 +3,7 @@ package com.yinmei.myd.api;
 import cn.hutool.http.HttpRequest;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.Kv;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
@@ -114,7 +115,8 @@ public class SeachController extends Controller {
         Integer pageSize = getParaToInt("pageSize",10);
         String keyword = getPara("keyword", "");
         String catid = getPara("catid", "27");
-        Page<Record> paginate = Db.paginate(pageNumber, pageSize, "select c.id,c.title,d.Niandai,d.Cangpinleibie,d.Cangpinjibie ",  "from v9_cangpinguanlixitong c,v9_cangpinguanlixitong_data d where c.id=d.id and c.catid=? and c.title like '%" + keyword + "%' and c.status='99' ORDER BY c.inputtime desc", catid);
+        String feilei = getPara("feilei", "");
+        Page<Record> paginate = Db.paginate(pageNumber, pageSize, "select c.id,c.title,d.Niandai,d.Cangpinleibie,d.Cangpinjibie ",  "from v9_cangpinguanlixitong c,v9_cangpinguanlixitong_data d where c.id=d.id and c.catid=? and c.title like '%" + keyword + "%' and d.Fengpinfeilei=? and c.status='99'  ORDER BY c.inputtime desc", catid,feilei);
         set("paginate",paginate);
         renderJson();
     }

@@ -39,7 +39,7 @@ public class ApiController extends Controller {
 	 */
 	public void timeline(){
 		String year = getPara("year");
-			List<Record> info = Db.find("SELECT x_data.*,x.title,x.thumb,x.inputtime,x.updatetime FROM v9_linshizhanlan x,v9_linshizhanlan_data x_data WHERE x.id=x_data.id AND status='99' AND YEAR(FROM_UNIXTIME(x.inputtime))=?",year);
+			List<Record> info = Db.find("SELECT x_data.*,x.title,x.thumb,x.inputtime,x.updatetime,x.description FROM v9_linshizhanlan x,v9_linshizhanlan_data x_data WHERE x.id=x_data.id AND status='99' AND YEAR(FROM_UNIXTIME(x.inputtime))=?",year);
 			set("info",info);
 		renderJson();
 	}
