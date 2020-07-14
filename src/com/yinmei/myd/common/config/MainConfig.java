@@ -25,6 +25,12 @@ public class MainConfig extends JFinalConfig {
 	 */
 	private static Prop p;
 	private WallFilter wallFilter;
+	// 先加载开发环境配置，再追加生产环境的少量配置覆盖掉开发环境配置
+	static void loadConfig() {
+		if (p == null) {
+			p = PropKit.use("config.properties").appendIfExists("config-pro.properties");
+		}
+	}
 	/**
 	 * 配置JFinal常量
 	 */
@@ -70,12 +76,7 @@ public class MainConfig extends JFinalConfig {
 		//设置默认访问首页路由 可使用http://localhost:port 直接访问 如果80端口 port可以省略
 		me.add("/",IndexController.class);
 	}
-	// 先加载开发环境配置，再追加生产环境的少量配置覆盖掉开发环境配置
-	static void loadConfig() {
-		if (p == null) {
-			p = PropKit.use("config.properties").appendIfExists("config-pro.properties");
-		}
-	}
+
 	/**
 	 * 获取数据库插件
 	 * 抽取成独立的方法，便于重用该方法，减少代码冗余
@@ -160,7 +161,7 @@ public class MainConfig extends JFinalConfig {
 	}
 	
 	public static void main(String[] args) {
-		JFinal.start("WebRoot", 80, "/myidea10", 5);
+		JFinal.start("webRoot", 80, "/myidea10", 5);
 	}
 	
 
