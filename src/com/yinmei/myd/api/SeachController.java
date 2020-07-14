@@ -119,8 +119,8 @@ public class SeachController extends Controller {
         Integer pageSize = getParaToInt("pageSize",10);
         String keyword = getPara("keyword", "");
         String catid = getPara("catid", "27");
-        String feilei = getPara("feilei", "");
-        Page<Record> paginate = Db.paginate(pageNumber, pageSize, "select c.id,c.title,d.Niandai,d.Cangpinleibie,d.Cangpinjibie ",  "from v9_cangpinguanlixitong c,v9_cangpinguanlixitong_data d where c.id=d.id and c.catid=? and c.title like '%" + keyword + "%' and d.Fengpinfeilei=? and c.status='99'  ORDER BY c.inputtime desc", catid,feilei);
+        //String feilei = getPara("feilei", "");
+        Page<Record> paginate = Db.paginate(pageNumber, pageSize, "select c.id,c.title,d.Niandai,d.Cangpinleibie,d.Cangpinjibie ",  "from v9_cangpinguanlixitong c,v9_cangpinguanlixitong_data d where c.id=d.id  and c.title like '%" + keyword + "%' and d.Fengpinfeilei=? and c.status='99'  ORDER BY c.inputtime desc", catid);
         set("paginate",paginate);
         renderJson();
     }
